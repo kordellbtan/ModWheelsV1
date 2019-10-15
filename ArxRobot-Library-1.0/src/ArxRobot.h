@@ -10,6 +10,8 @@
 #include "Arduino.h"       // Arduino library files
 #include <avr/wdt.h>       // Standard C library for AVR-GCC avr-libc wdt.h
 #include "TelecomClass.h"  // TB6612FNG Motor Driver
+#include "servo3DoT.h"
+#include "twi.h"
 
 /*
  *  header .h class member definitions
@@ -36,6 +38,7 @@ public:
     void begin();
     void loop();
     void setOnCommand(cmdFunc_t*,uint8_t);
+    void setCurrentLimit(uint8_t);
 
 private:
     // Private class 'methods'

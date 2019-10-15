@@ -86,7 +86,6 @@ uint16_t FuelGauge::readFuelGauge()
   return (uint16_t) constrain(V,0,100);  // constrain to a floating point value between 0% and 100%
 }
 
-
 /*
  * Notes:
  */

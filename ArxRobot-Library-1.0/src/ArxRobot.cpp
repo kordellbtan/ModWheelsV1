@@ -8,6 +8,8 @@
 #include <avr/wdt.h>       // Standard C library for AVR-GCC avr-libc wdt.h
 #include "TelecomClass.h"  // TB6612FNG Motor Driver
 #include "ArxRobot.h"
+#include "servo3DoT.h"
+#include "twi.h"
 
 
 // robotControl model included an extern preprocessor directive.
@@ -167,6 +169,26 @@ void ArxRobot::_clear_MCUCR_JTD_bit()
   asm("out 0x35, r24");
 }
 
+
+void ArxRobot::setCurrentLimit(uint8_t steps)
+{
+    if(steps > 128)
+    {
+        Serial.println("CurrentLimit steps should be < 128. Current limit not set.");
+    }
+    else
+    {
+        TWIInit(); // Sets I2C frequency
+
+        TWIStart(); // Start transmission
+
+        TWIWrite(SLA_W); // Address MCP4017
+
+        TWIWrite(steps); // Write desired resistance value to MCP4017
+
+        TWIStop();
+    }
+}
 /* Notes
 1. The callback construction is modeled on the MIDI library .h file and
    MIDI_Callbacks.ino example.
